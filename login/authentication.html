@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Authentication System</title>
+    <link rel="stylesheet" href="styl.css" />
+  </head>
+  <body>
+    <h1>Login Authentication System</h1>
+
+    <div id="registerSection">
+      <h2>Register</h2>
+      <label>Username: <input type="text" id="regUsername" /></label><br />
+      <label>Password: <input type="password" id="regPassword" /></label><br />
+      <button onclick="register()">Register</button>
+    </div>
+
+    <div id="loginSection">
+      <h2>Login</h2>
+      <label>Username: <input type="text" id="loginUsername" /></label><br />
+      <label>Password: <input type="password" id="loginPassword" /></label
+      ><br />
+      <button onclick="login()">Login</button>
+    </div>
+
+    <div id="securedPage" style="display: none">
+      <h2>Secured Page</h2>
+      <p>Welcome to the secured page!</p>
+      <!-- Add your secured page content here -->
+    </div>
+
+    <script>
+      // Array to store user credentials
+      const users = [];
+
+      function register() {
+        const username = document.getElementById("regUsername").value;
+        const password = document.getElementById("regPassword").value;
+
+        if (username.trim() === "" || password.trim() === "") {
+          alert("Username and password cannot be empty.");
+          return;
+        }
+
+        // Check if the username already exists
+        if (users.some((user) => user.username === username)) {
+          alert("Username already exists. Please choose a different one.");
+          return;
+        }
+
+        // Add the new user to the array
+        users.push({ username, password });
+
+        alert("Registration successful!");
+      }
+
+      function login() {
+        const username = document.getElementById("loginUsername").value;
+        const password = document.getElementById("loginPassword").value;
+
+        const user = users.find((user) => user.username === username);
+
+        if (user && user.password === password) {
+          // Show the secured page and hide the login and register sections
+          document.getElementById("loginSection").style.display = "none";
+          document.getElementById("registerSection").style.display = "none";
+          document.getElementById("securedPage").style.display = "block";
+        } else {
+          alert("Invalid username or password.");
+        }
+      }
+    </script>
+  </body>
+</html>
